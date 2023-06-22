@@ -44,7 +44,7 @@ def say_hello():
 def greet_person():
     """Greet user with compliment."""
 
-    player = request.args.get("person")
+    player = request.args.get("name")
 
     compliment = choice(AWESOMENESS)
 
@@ -53,13 +53,27 @@ def greet_person():
 @app.route("/game")
 def show_madlib_form():
 
-    name = request.args.get("person")
-    compliment = request.args.get("")
+    person = request.args.get("name")
+    compliment = choice(AWESOMENESS)
 
     if request.args.get("radioselection") == "yes":
         return render_template("game.html")
 
-    return render_template("goodbye.html", name = name, compliment = compliment)
+    return render_template("goodbye.html", person = person , compliment = compliment)
+
+@app.route("/madlib")
+def show_madlib():
+    person = request.args.get("name")
+    color = request.args.get("colorpick")
+    noun = request.args.get("nounpick")
+    adjective = request.args.get("adjectivepick")
+   
+
+    return render_template("madlib.html", 
+                           person = person, 
+                           color = color , 
+                           noun = noun, 
+                           adjective = adjective)
 
 
 
